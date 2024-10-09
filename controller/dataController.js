@@ -1,5 +1,4 @@
 const info = require("../model/infoMode");
-// const info = require('../model/infoMode'); 
 
 const dataByMonth=async (monthNumber)=>{
   if (isNaN(monthNumber) || monthNumber < 1 || monthNumber > 12) {
@@ -70,21 +69,19 @@ const barChartDataController = async (req, res) => {
       { range: "901 - above", min: 901, max: Infinity }
     ];
 
-    // Initialize result object
     let result = priceRanges.map(range => ({ _id: range.range, count: 0 }));
 
-    // Loop through the data and classify each item into the appropriate price range
     data.forEach((item) => {
       const price = item.price;
       for (let i = 0; i < priceRanges.length; i++) {
         if (price >= priceRanges[i].min && price <= priceRanges[i].max) {
           result[i].count += 1;
-          break; // Exit loop after finding the correct range
+          break; 
         }
       }
     });
 
-    // Send the calculated statistics as a response
+ 
     res.status(200).json(result);
   } catch (err) {
     res.status(500).json({ message: "Server error", error: err });
